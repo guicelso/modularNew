@@ -27,8 +27,8 @@ Sistema modular com arquitetura de microfrontends e microserviços, permitindo a
 
 1. **Instalação**
    ```bash
-   git clone https://github.com/seu-usuario/plataforma-modular.git
-   cd plataforma-modular
+   git clone https://github.com/guicelso/modularNew.git
+   cd modularNew
    ```
 
 2. **Executar com Docker**
@@ -48,6 +48,16 @@ Sistema modular com arquitetura de microfrontends e microserviços, permitindo a
 2. Adicione as pastas `frontend` e `backend`
 3. Configure os arquivos necessários (Dockerfiles, .env, etc.)
 4. Adicione o serviço ao `docker-compose.yml`
+
+## Contribuindo
+
+Se você deseja contribuir com este projeto, siga estas etapas:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. Faça commit das suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Envie para o branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
 
 ## Documentação
 
