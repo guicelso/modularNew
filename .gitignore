@@ -1,0 +1,37 @@
+# Dependências
+node_modules
+.pnpm-store/
+
+# Arquivos de build
+dist
+build
+.output
+
+# Arquivos de ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDE e editores
+.idea
+.vscode
+*.swp
+*.swo
+
+# Arquivos de Docker
+.docker
+
+# Volumes MongoDB
+data 

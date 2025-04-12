@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.9
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - modular-network
+
+  platform-frontend:
+    build:
+      context: ./plataforma/frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.platform-frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.platform-frontend.entrypoints=web"
+      - "traefik.http.services.platform-frontend.loadbalancer.server.port=80"
+    depends_on:
+      - platform-backend
+    networks:
+      - modular-network
+
+  platform-backend:
+    build:
+      context: ./plataforma/backend
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.platform-backend.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.platform-backend.entrypoints=web"
+      - "traefik.http.services.platform-backend.loadbalancer.server.port=3000"
+    volumes:
+      - ./modulos:/app/modulos:ro
+    networks:
+      - modular-network
+
+  modulo1-frontend:
+    build:
+      context: ./modulos/modulo1/frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.modulo1-frontend.rule=PathPrefix(`/modulos/modulo1`)"
+      - "traefik.http.routers.modulo1-frontend.entrypoints=web"
+      - "traefik.http.services.modulo1-frontend.loadbalancer.server.port=80"
+    depends_on:
+      - modulo1-backend
+    networks:
+      - modular-network
+
+  modulo1-backend:
+    build:
+      context: ./modulos/modulo1/backend
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.modulo1-backend.rule=PathPrefix(`/api/modulos/modulo1`)"
+      - "traefik.http.routers.modulo1-backend.entrypoints=web"
+      - "traefik.http.services.modulo1-backend.loadbalancer.server.port=3001"
+    networks:
+      - modular-network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - modular-network
+
+networks:
+  modular-network:
+    driver: bridge
+
+volumes:
+  mongodb-data: 
