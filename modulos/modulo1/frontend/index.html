@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Módulo 1 - MFE</title>
+    <!-- Script de inicialização do Module Federation -->
+    <script type="module">
+      // Inicialização para garantir que o contexto de módulo seja estabelecido
+      window.__mfImport = (url) => /* @vite-ignore */ import(url);
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -4,7 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Plataforma Central - MFE</title>
+    <!-- Precarregamento do módulo remoto para evitar problemas de carregamento -->
+    <link rel="modulepreload" href="http://localhost:5001/remoteEntry.js">
+    <!-- Script de inicialização e configuração do Module Federation -->
+    <script type="module">
+      // Usando vite-ignore para evitar avisos de importação dinâmica
+      /* @vite-ignore */
+      import("http://localhost:5001/remoteEntry.js").catch(err => {
+        console.warn("Aviso: Falha ao pré-carregar módulo remoto:", err);
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
